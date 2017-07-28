@@ -83,19 +83,7 @@ public class Calculator implements CalculatorInterface {
 	@Override
 	public void addToExpression(String newValue) {
 		
-//		if (expression.isEmpty() && !isNumeric(newValue)) {
-//			expression = "0 " + newValue;
-//		}else if (expression.isEmpty() && isNumeric(newValue)){
-//			expression += newValue;
-//		}else if (isNumeric(newValue) && !isNumeric(expression.charAt(expression.length() - 1))) {
-//			expression += " " + newValue;
-//		}else if (isNumeric(newValue) && isNumeric(expression.charAt(expression.length() - 1))) {
-//			expression += newValue;
-//		}else if (!isNumeric(newValue) && isNumeric(expression.charAt(expression.length() - 1))) {
-//			expression += " " + newValue;
-//		}else {
-//			expression = replaceLast(newValue);
-//		}
+
 		
 		char latestAddition = ' ';
 		if (!expression.isEmpty()) {
@@ -103,18 +91,11 @@ public class Calculator implements CalculatorInterface {
 		}
 		
 		if (expression.isEmpty() && !isNumeric(newValue)) {
-			switch (newValue) {
-				case "+":	expression += "0 +";
-							break;
-				case "-":	expression += "0 -";
-							break;
-				case "*":	expression += "0 *";
-							break;
-				case "/":	expression += "0 /";
-							break;
-				case "(":	expression += "(";
-							break;
-			}			
+			if (newValue.equals("(")){
+				expression += "(";
+			}else {
+				expression += "0 " + newValue;
+			}		
 		}else if (expression.isEmpty() && isNumeric(newValue)) {
 			expression += newValue;
 		}else if (isNumeric(newValue) && !isNumeric(latestAddition)) {
@@ -124,18 +105,12 @@ public class Calculator implements CalculatorInterface {
 		}else if (!isNumeric(newValue) && isNumeric(latestAddition)) {
 			expression += " " + newValue;
 		}else {
-			switch (newValue) {
-				case "+":	replaceLast(newValue);
-					break;
-				case "-":	replaceLast(newValue);
-					break;
-				case "*":	replaceLast(newValue);
-					break;
-				case "/":	replaceLast(newValue);
-					break;
-				case "(":	expression += " (";
-					break; 
+			if (newValue.equals("(")){
+				expression += " (";
+			}else {
+				expression = replaceLast(newValue);
 			}
+			
 		}
 	}
 
